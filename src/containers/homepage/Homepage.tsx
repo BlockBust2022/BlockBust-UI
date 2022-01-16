@@ -25,9 +25,9 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
-    fetchTrendingMovies();
     document.title =
       "BlockBust- Watch Full HD Movies Online and Stream Free Movies Online Now";
+    fetchTrendingMovies();
   }, []);
   return (
     <div>

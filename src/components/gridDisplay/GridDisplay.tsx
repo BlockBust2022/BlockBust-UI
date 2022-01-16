@@ -1,5 +1,5 @@
 import React from "react";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowSharp';
 import { Link } from "react-router-dom";
 import "./style.css";
 import { Typography } from "@mui/material";
@@ -24,24 +24,27 @@ const GridDisplay = (props: any) => {
                     }`,
                   }}
                 >
-                  <div className="movie-item-style-2 movie-item-style-1">
+                  <div className="movie-item-style-1">
                     <img
                       src={`${baseUrlPoster}/${movie.poster_path}`}
                       alt={movie.title}
                     />
                     <div className="hvr-inner">
-                      {/* Change this to Play button  */}
-                      <PlayCircleIcon fontSize="large" />{" "}
+                      <PlayArrowRoundedIcon fontSize="large" />{" "}
                     </div>
                     <div className="mv-item-infor">
                       <h6>
                         <a href="/">{movie.title || movie.name}</a>
                       </h6>
-
-                      <Typography style={{ marginTop: "-10px" }} variant="h6">
+                      <p>
                         {movie.release_date?.split("-")[0] ||
                           movie.first_air_date?.split("-")[0]}
-                      </Typography>
+                      </p>
+
+                      {/* <Typography style={{ marginTop: "-10px" }} variant="h6">
+                        {movie.release_date?.split("-")[0] ||
+                          movie.first_air_date?.split("-")[0]}
+                      </Typography> */}
                     </div>
                   </div>
                 </Link>
@@ -56,10 +59,10 @@ const GridDisplay = (props: any) => {
                   <iframe
                     title="ad"
                     data-aa="1889116"
-                    src="//acceptable.a-ads.com/1889116"
+                    src="//ad.a-ads.com/1889116?size=300x250"
                     style={{
-                      width: "100%",
-                      height: "100%",
+                      width: "300px",
+                      height: "250px",
                       border: "0px",
                       padding: "0",
                       overflow: "hidden",

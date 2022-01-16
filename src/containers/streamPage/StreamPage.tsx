@@ -3,7 +3,13 @@ import { useParams } from "react-router-dom";
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
 import Player from "../../components/player/Player";
-import { getEpisodeBySeason, getMovie, getTvSeries } from "../../service/api";
+import {
+  getEpisodeBySeason,
+  getMovie,
+  getSimilarMovies,
+  getSimilarTvSeries,
+  getTvSeries,
+} from "../../service/api";
 import {
   Box,
   FormControl,
@@ -15,6 +21,8 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import Loader from "../../components/loader/Loader";
+import GridDisplay from "../../components/gridDisplay/GridDisplay";
+import DisplayInfo from "../../components/displayInfo/DisplayInfo";
 
 export const StreamPage = () => {
   const { id, source } = useParams();
@@ -23,20 +31,25 @@ export const StreamPage = () => {
   const [episode, setEpisode] = useState([] as any);
   const [streamUrl, setStreamUrl] = useState("" as any);
   const [pageTitle, setPageTitle] = useState("" as any);
+  const [similarStreamData, setSimilarStreamData] = useState([] as any);
 
   const getStreamData = async () => {
     try {
       if (source === "movie") {
         const res = await getMovie(id as number | string);
+        const similarMovie = await getSimilarMovies(id as string);
         setStreamData(res);
         setPageTitle(res.title);
         setStreamUrl(res.url);
+        setSimilarStreamData(similarMovie.results);
       }
       if (source === "tv") {
         const res = await getTvSeries(id as number | string);
+        const similarTvSeries = await getSimilarTvSeries(id as string);
         setStreamData(res);
         setPageTitle(res.name);
         setStreamUrl(res?.seasons[0]?.episodes[0]?.url);
+        setSimilarStreamData(similarTvSeries.results);
       }
     } catch (err) {
       console.log(err);
@@ -56,7 +69,7 @@ export const StreamPage = () => {
     setSeason(Number(event.target.value));
     fetchEpisode(id as string, Number(event.target.value) + 1);
   };
-  console.log(streamData?.title, "resss");
+
   useEffect(() => {
     fetchEpisode(id as string, season + 1);
     getStreamData();
@@ -64,12 +77,19 @@ export const StreamPage = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageTitle]);
-
+  console.log(streamData, "data");
   return (
     <div>
       <Header />
       {streamData ? (
         <>
+          <DisplayInfo
+            name={streamData.name || streamData.title}
+            image={streamData.poster_path}
+            description={streamData.overview}
+            id={streamData.imdbId}
+            release={streamData.first_air_date}
+          />
           {source === "movie" ? (
             <div className="movie-items" style={{ padding: "10%" }}>
               <Player streamUrl={streamData?.url} />
@@ -109,6 +129,19 @@ export const StreamPage = () => {
         </>
       ) : (
         <Loader />
+      )}
+      {source === "movie" ? (
+        <GridDisplay
+          title={"Similar Movies"}
+          movies={similarStreamData}
+          source={"movie"}
+        />
+      ) : (
+        <GridDisplay
+          title={"Similar TV Series"}
+          movies={similarStreamData}
+          source={"tv"}
+        />
       )}
 
       <Footer />

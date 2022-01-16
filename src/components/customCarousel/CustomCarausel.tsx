@@ -12,7 +12,7 @@ const CustomCarausel = (props: any) => {
               <div className="movie-item">
                 {/* onclick="location.href='#';"> */}
                 <div className="mv-img">
-                  <a href="#">
+                  <a>
                     <img
                       src={`${baseUrlPoster}/${movie.poster_path}`}
                       alt={movie.title}
@@ -24,10 +24,10 @@ const CustomCarausel = (props: any) => {
                 <div className="title-in">
                   <div className="cate"></div>
                   <h6>
-                    <a href="#">{movie.title}</a>
+                    <a>{movie.title}</a>
                   </h6>
                   <p>
-                    <a href="#">1995</a>
+                    <a>1995</a>
                   </p>
                 </div>
               </div>

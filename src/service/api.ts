@@ -90,9 +90,32 @@ export const getTrendingTvSeries = (
     try {
       const res = await axios.get(`${baseUrl}tv/trendingTv?page=${page || 1}`);
       resolve(res.data);
-      console.log(res, 'api res')
     } catch (err) {
       console.log(err);
+      reject(err);
+    }
+  });
+}
+
+//similar Movies
+export const getSimilarMovies = (id: string | number): Promise<any> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.get(`${baseUrl}movie/similarMovies/${id}}`);
+      resolve(res.data);
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+//similar TV series
+export const getSimilarTvSeries = (id: string | number): Promise<any> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.get(`${baseUrl}tv/similarTv/${id}`);
+      resolve(res.data);
+    } catch (err) {
       reject(err);
     }
   });
