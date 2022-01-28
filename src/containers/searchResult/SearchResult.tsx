@@ -6,7 +6,8 @@ import GridDisplay from "../../components/gridDisplay/GridDisplay";
 import Header from "../../components/header/Header";
 import Loader from "../../components/loader/Loader";
 import { getSearch } from "../../service/api";
-import { makeStyles } from "@mui/styles"
+import { makeStyles } from "@mui/styles";
+import NotFound from "../../components/notFound/NotFound";
 
 const useStyles = makeStyles(() => ({
   ul: {
@@ -14,8 +15,8 @@ const useStyles = makeStyles(() => ({
       color: "#fff",
       fontSize: "15px",
       padding: "45%",
-    }
-  }
+    },
+  },
 }));
 
 export const SearchResult = () => {
@@ -24,7 +25,6 @@ export const SearchResult = () => {
   const [search, setSearch] = useState([] as any);
   const [pg, setPg] = useState(Number(page));
   const [totalPages, setTotalPages] = useState(1);
-
 
   const classes = useStyles();
 
@@ -37,41 +37,43 @@ export const SearchResult = () => {
       console.log(err);
     }
   };
-  
-
   useEffect(() => {
     fetchSerachData(pg);
     document.title = "Results for " + keyword;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword, page]);
 
-
   return (
     <div>
       <Header />
       {search.length > 0 ? (
         <div>
-          <div style={{ paddingTop: "10%" }} className="movie-items">
-            <GridDisplay
-              title={`Search Results for ${keyword}`}
-              movies={search}
-            />
-          </div>
-          <Stack style={{ backgroundColor: "#020d18" }}>
-            <Pagination
-              style={{ margin: "auto", display: "block", }}
-              count={totalPages}
-              defaultPage={pg}
-              size= "large"
-              color="primary"
-              classes={{ ul: classes.ul }}
-              onChange={(event, p) => {
-                setPg(p);
-                navigate(`/search/${keyword}/page=${p}`);
-                
-              }}
-            />
-          </Stack>
+          {search.toString() === "Not Found" ? (
+            <NotFound />
+          ) : (
+            <>
+              <div style={{ paddingTop: "10%" }} className="movie-items">
+                <GridDisplay
+                  title={`Search Results for ${keyword}`}
+                  movies={search}
+                />
+              </div>
+              <Stack style={{ backgroundColor: "#020d18" }}>
+                <Pagination
+                  style={{ margin: "auto", display: "block" }}
+                  count={totalPages}
+                  defaultPage={pg}
+                  size="large"
+                  color="primary"
+                  classes={{ ul: classes.ul }}
+                  onChange={(event, p) => {
+                    setPg(p);
+                    navigate(`/search/${keyword}/page=${p}`);
+                  }}
+                />
+              </Stack>
+            </>
+          )}
         </div>
       ) : (
         <Loader />

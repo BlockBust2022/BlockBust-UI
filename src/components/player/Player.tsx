@@ -1,14 +1,12 @@
 import React from 'react';
+import "./style.css";
 
 const Player = (props: { streamUrl: string }) => {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h3>{props.streamUrl}</h3>
+    <div>
       <iframe
         title='Movie'
         src={props.streamUrl}
-        width='800'
-        height='600'
         allowFullScreen
         allow='autoplay'
         scrolling='no'

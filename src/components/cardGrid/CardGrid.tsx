@@ -1,9 +1,8 @@
 import { Card, CardMedia, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import React from "react";
+import { ImageBaseUrl } from "../../constant/constant";
 
 const CardGrid = (props: any) => {
-  const baseUrlPoster = "https://image.tmdb.org/t/p/w185/";
   return (
     <Grid
       container
@@ -19,7 +18,7 @@ const CardGrid = (props: any) => {
               <Card style={{ height: "300px", width: "200px" }}>
                 <CardMedia
                   component="img"
-                  image={`${baseUrlPoster}/${movie.poster_path}`}
+                  image={`${ImageBaseUrl}/${movie.poster_path}`}
                 />
               </Card>
               <Typography>{movie.title}</Typography>

@@ -1,6 +1,6 @@
 export interface getSearchInterface {
   page: number;
-  results?: ResultsEntity[] | null;
+  results?: ResultsEntity[] | null | string;
   total_pages: number;
   total_results: number;
 }
