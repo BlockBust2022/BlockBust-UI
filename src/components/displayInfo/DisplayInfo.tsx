@@ -5,7 +5,7 @@ const DisplayInfo = (props: any) => {
   return (
     <div className="movie-items">
         <br style={{ backgroundColor: "rgb(10, 26, 43)", }}></br>
-      
+      <div id="main-container">
         <div className="container">
           <div className="card web" style={{
 
@@ -51,7 +51,7 @@ const DisplayInfo = (props: any) => {
 
           </div>
         </div>
-      
+      </div>
       <br style={{ backgroundColor: "rgb(10, 26, 43)", }}></br>
     </div>
 
