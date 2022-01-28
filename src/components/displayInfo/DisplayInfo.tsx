@@ -4,10 +4,11 @@ import "./style.css";
 const DisplayInfo = (props: any) => {
   return (
     <div className="movie-items">
-      <div id="main-container">
+        <br style={{ backgroundColor: "rgb(10, 26, 43)", }}></br>
+      
         <div className="container">
           <div className="card web" style={{
-              
+
             backgroundColor: "rgb(10, 26, 43)",
           }}>
             <div className="card-body">
@@ -19,13 +20,13 @@ const DisplayInfo = (props: any) => {
                 <div className="col-10">
                   <span ><h1>{props.name}</h1></span>
                   <p >Release Date : {props.release}</p>
-                
+
                   <p >{props.description}</p>
-                  
+
                   <p >{props.genere}</p>
                 </div>
               </div>
-              
+
             </div>
           </div>
           <div className="card mobile" style={{
@@ -37,18 +38,21 @@ const DisplayInfo = (props: any) => {
               <img src={`${ImageBaseUrl}${props.image}`} alt={props.name} />
 
               <div className="col-10">
-                  <span ><h1>{props.name}</h1></span>
-                  <p >Release Date : {props.release}</p>
-                
-                  <p >{props.description}</p>
-                  
-                  <p >{props.genere}</p>
-                </div>
+                <br></br>
+                <span ><h1>{props.name}</h1></span>
+                <br></br>
+                <p >Release Date : {props.release}</p>
+
+                <p >{props.description}</p>
+
+                <p >{props.genere}</p>
+              </div>
             </div>
 
           </div>
         </div>
-      </div>
+      
+      <br style={{ backgroundColor: "rgb(10, 26, 43)", }}></br>
     </div>
 
 
