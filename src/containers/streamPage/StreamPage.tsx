@@ -11,11 +11,9 @@ import {
   getTvSeries,
 } from "../../service/api";
 import {
-  autocompleteClasses,
   Box,
   FormControl,
   Grid,
-  InputLabel,
   ListItemButton,
   ListItemText,
   MenuItem,
@@ -25,7 +23,6 @@ import {
 import Loader from "../../components/loader/Loader";
 import GridDisplay from "../../components/gridDisplay/GridDisplay";
 import DisplayInfo from "../../components/displayInfo/DisplayInfo";
-import { Margin, Padding } from "@mui/icons-material";
 
 export const StreamPage = () => {
   const { id, source } = useParams();
@@ -80,7 +77,6 @@ export const StreamPage = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageTitle]);
-  console.log(streamData, "data");
   return (
     <div>
       <Header />
@@ -99,15 +95,17 @@ export const StreamPage = () => {
         }}
       ></iframe>
           {source === "movie" ? (
-            <div className="movie-items" style={{ padding: "10%" }}>
-              <h1>
+            <div className="movie-items" style={{ padding: "2% 8% 2% 8%" }}>
+              <h1 style={{ paddingBottom: "2%" }}>
                 {streamData.name || streamData.title}
               </h1>
               <Player streamUrl={streamData?.url} />
             </div>
           ) : (
-            <div className="movie-items" style={{ padding: "10%" }}>
-              
+            <div className="movie-items" style={{ padding: "2% 8% 2% 8%" }}>
+              <h1 style={{ paddingBottom: "2%" }}>
+                {streamData.name || streamData.title}
+              </h1>
               {streamData && <Player streamUrl={streamUrl} />}
               <br></br>
               <Box className="card" style={{ backgroundColor: "rgb(10, 26, 43)", }} >
@@ -123,10 +121,7 @@ export const StreamPage = () => {
 
                       </ListItemButton>
 
-
-
                     </Grid>
-
 
                   </Grid>
                 </div>
@@ -147,7 +142,7 @@ export const StreamPage = () => {
                       onChange={handleChange}
                     >
                       {streamData?.seasons.map((item: any, index: number) => (
-                        <MenuItem key={item.id} value={index}>
+                        <MenuItem key={item.id} value={index} style={{ fontSize:"1.4rem" }}>
                           {item.name}
                         </MenuItem>
                       ))}
@@ -159,7 +154,7 @@ export const StreamPage = () => {
                     height: "250px",
                   }}>
                     {episode?.episodes?.map((ep: any) => (
-                      <Grid item xs={12} md={2}  style={{ maxHeight:"60px", margin: "1.6%", backgroundColor: "rgb(37, 59, 83)", padding: "2px", borderRadius: "5px", }} >
+                      <Grid item xs={12} md={2}  style={{ maxHeight:"50px", margin: "1.6%", backgroundColor: "rgb(37, 59, 83)", padding: "2px", borderRadius: "5px", }} >
                         <ListItemButton>
 
                           <ListItemText style={{ color: "white", textAlign: "center", }} onClick={() => setStreamUrl(ep?.url)}>
@@ -183,7 +178,6 @@ export const StreamPage = () => {
             description={streamData.overview}
             id={streamData.imdbId}
             release={streamData.first_air_date}
-            
           />
         
         </>

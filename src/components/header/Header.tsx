@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/logo1.png";
@@ -37,7 +37,7 @@ const Header = (props: any) => {
             {/* <Button type="submit" size="large" onClick={() => handleGotoSearch(searchKeyword)}>
               Search
             </Button> */}
-            <IconButton aria-label="search" size="large" onClick={() => handleGotoSearch(searchKeyword)} >
+            <IconButton type="submit" aria-label="search" size="large" onClick={() => handleGotoSearch(searchKeyword)} >
               <SearchIcon style={{ color: "white", transform: "scale(1.8)" }} />
             </IconButton>
           </form>

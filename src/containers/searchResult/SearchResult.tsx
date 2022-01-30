@@ -1,4 +1,4 @@
-import { Pagination, Stack, withStyles } from "@mui/material";
+import { Pagination, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import Footer from "../../components/footer/Footer";
@@ -52,7 +52,7 @@ export const SearchResult = () => {
             <NotFound />
           ) : (
             <>
-              <div style={{ paddingTop: "10%" }} className="movie-items">
+              <div style={{ paddingTop: "2%" }} className="movie-items">
                 <GridDisplay
                   title={`Search Results for ${keyword}`}
                   movies={search}

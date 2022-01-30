@@ -13,7 +13,6 @@ const GridDisplay = (props: any) => {
             <h4 className="sb-title">{props.title}</h4>
 
             <div className="flex-wrap-movielist">
-              {/* Iterrate this  */}
               {props.movies.map((movie: any) => (
                 <Link
                   key={movie.id}
