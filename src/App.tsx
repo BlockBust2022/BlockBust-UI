@@ -8,9 +8,7 @@ function App() {
   
   
   useEffect(() => {
-    Reactga.initialize("G-V186B0X8K4",{
-        debug: true,
-    });
+    Reactga.initialize("G-V186B0X8K4");
     Reactga.pageview(window.location.pathname + window.location.search);
     console.log("Google Analytics loaded: ", Reactga.ga());
   }, []);
