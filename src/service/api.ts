@@ -100,7 +100,7 @@ export const getTrendingTvSeries = (
 export const getSimilarMovies = (id: string | number): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await axios.get(`${BaseUrl}movie/similarMovies/${id}}`);
+      const res = await axios.get(`${BaseUrl}movie/similarMovies/${id}`);
       resolve(res.data);
     } catch (err) {
       reject(err);
