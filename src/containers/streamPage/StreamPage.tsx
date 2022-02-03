@@ -23,6 +23,7 @@ import {
 import Loader from "../../components/loader/Loader";
 import GridDisplay from "../../components/gridDisplay/GridDisplay";
 import DisplayInfo from "../../components/displayInfo/DisplayInfo";
+import "./style.css";
 
 export const StreamPage = () => {
   const { id, source } = useParams();
@@ -108,24 +109,25 @@ export const StreamPage = () => {
               </h1>
               {streamData && <Player streamUrl={streamUrl} />}
               <br></br>
-              <Box className="card" style={{ backgroundColor: "rgb(10, 26, 43)", }} >
-                <div className="card-body">
-                  <Grid container  >
+              {/* <Box className="card" style={{ backgroundColor: "rgb(10, 26, 43)", }} > */}
+                {/* <div className="card-body"> */}
+                  
 
-                    <Grid item xs={12} md={6} lg={2} style={{ margin: "1.5%", backgroundColor: "rgb(37, 59, 83)", padding: "0px", borderRadius: "5px", }} >
-                      <ListItemButton>
+                  
+                    
 
-                        <ListItemText style={{ color: "white", textAlign: "center", }} >
+                    <div className="form-style-1">
+                    <div className="col-md-6 col-xs-12">
+                      <input className="submit" type="submit" value="submit"  style={{ float: "right" }}/>
+                    </div>
+                    <div className="col-md-6 col-xs-12">
+                      <input className="submit" type="submit" value="submit"  />
+                    </div>
+                  </div>
 
-                        </ListItemText>
-
-                      </ListItemButton>
-
-                    </Grid>
-
-                  </Grid>
-                </div>
-              </Box>
+                    
+                {/* </div> */}
+              {/* </Box> */}
               <br></br>
               {episode ? (
 
