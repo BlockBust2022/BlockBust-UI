@@ -33,6 +33,7 @@ export const StreamPage = () => {
   const [streamUrl, setStreamUrl] = useState("" as any);
   const [pageTitle, setPageTitle] = useState("" as any);
   const [similarStreamData, setSimilarStreamData] = useState([] as any);
+  const [serverUrls, setServerUrls] = useState([] as any);
 
   const getStreamData = async () => {
     try {
@@ -42,6 +43,7 @@ export const StreamPage = () => {
         setStreamData(res);
         setPageTitle(res.title);
         setStreamUrl(res.url);
+        setServerUrls(res.url);
         setSimilarStreamData(similarMovie.results);
       }
       if (source === "tv") {
@@ -49,7 +51,8 @@ export const StreamPage = () => {
         const similarTvSeries = await getSimilarTvSeries(id as string);
         setStreamData(res);
         setPageTitle(res.name);
-        setStreamUrl(res?.seasons[0]?.episodes[0]?.url);
+        setServerUrls(res?.seasons[0]?.episodes[0]?.url);
+        setStreamUrl(res?.seasons[0]?.episodes[0]?.url[0]);
         setSimilarStreamData(similarTvSeries.results);
       }
     } catch (err) {
@@ -78,29 +81,67 @@ export const StreamPage = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageTitle]);
+
   return (
     <div>
       <Header />
 
       {streamData ? (
-        <> <iframe
-        title="ad"
-        data-aa='1909560' src='//acceptable.a-ads.com/1909560'
-        style={{
-          width: "100%",
-          height: "100%",
-          border: "0px",
-          padding: "0",
-          overflow: "hidden",
-          backgroundColor: "transparent",
-        }}
-      ></iframe>
+        <>
+          <iframe
+            title="ad"
+            data-aa="1909560"
+            src="//acceptable.a-ads.com/1909560"
+            style={{
+              width: "100%",
+              height: "100%",
+              border: "0px",
+              padding: "0",
+              overflow: "hidden",
+              backgroundColor: "transparent",
+            }}
+          ></iframe>
           {source === "movie" ? (
             <div className="movie-items" style={{ padding: "2% 8% 2% 8%" }}>
               <h1 style={{ paddingBottom: "2%" }}>
                 {streamData.name || streamData.title}
               </h1>
               <Player streamUrl={streamData?.url} />
+              {serverUrls.length > 1 && (
+                <Box
+                  className="card"
+                  style={{ backgroundColor: "rgb(10, 26, 43)" }}
+                >
+                  <div className="card-body">
+                    <Grid container>
+                      {/* Streaming multipleServer  */}
+                      {serverUrls?.map((server: any, index: any) => (
+                        <Grid
+                          item
+                          xs={12}
+                          md={6}
+                          lg={2}
+                          style={{
+                            margin: "1.5%",
+                            backgroundColor: "rgb(37, 59, 83)",
+                            padding: "0px",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          <ListItemButton>
+                            <ListItemText
+                              onClick={() => setStreamUrl(server)}
+                              style={{ color: "white", textAlign: "center" }}
+                            >
+                              {`Server ${index + 1}`}
+                            </ListItemText>
+                          </ListItemButton>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </div>
+                </Box>
+              )}
             </div>
           ) : (
             <div className="movie-items" style={{ padding: "2% 8% 2% 8%" }}>
@@ -109,63 +150,104 @@ export const StreamPage = () => {
               </h1>
               {streamData && <Player streamUrl={streamUrl} />}
               <br></br>
-              {/* <Box className="card" style={{ backgroundColor: "rgb(10, 26, 43)", }} > */}
-                {/* <div className="card-body"> */}
-                  
-
-                  
-                    
-
-                    <div className="form-style-1">
-                    <div className="col-md-6 col-xs-12">
-                      <input className="submit" type="submit" value="submit"  style={{ float: "right" }}/>
-                    </div>
-                    <div className="col-md-6 col-xs-12">
-                      <input className="submit" type="submit" value="submit"  />
-                    </div>
+              {serverUrls.length > 1 && (
+                <Box
+                  className="card"
+                  style={{ backgroundColor: "rgb(10, 26, 43)" }}
+                >
+                  <div className="card-body">
+                    <Grid container>
+                      {/* Streaming multipleServer  */}
+                      {serverUrls?.map((server: any, index: any) => (
+                        <Grid
+                          item
+                          xs={12}
+                          md={6}
+                          lg={2}
+                          style={{
+                            margin: "1.5%",
+                            backgroundColor: "rgb(37, 59, 83)",
+                            padding: "0px",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          <ListItemButton>
+                            <ListItemText
+                              onClick={() => setStreamUrl(server)}
+                              style={{ color: "white", textAlign: "center" }}
+                            >
+                              {`Server ${index + 1}`}
+                            </ListItemText>
+                          </ListItemButton>
+                        </Grid>
+                      ))}
+                    </Grid>
                   </div>
+                </Box>
+              )}
 
-                    
-                {/* </div> */}
-              {/* </Box> */}
               <br></br>
               {episode ? (
-
-                <Box className="card" sx={{ minWidth: 120, backgroundColor: "rgb(10, 26, 43)", }}>
-                  <FormControl className="card-body" >
-
-                    <Select style={{
-                      color: "white",
-                      fontSize: "1.4rem",
-                      backgroundColor: "rgb(37, 59, 83)"
-                    }}
+                <Box
+                  className="card"
+                  sx={{ minWidth: 120, backgroundColor: "rgb(10, 26, 43)" }}
+                >
+                  <FormControl className="card-body">
+                    <Select
+                      style={{
+                        color: "white",
+                        fontSize: "1.4rem",
+                        backgroundColor: "rgb(37, 59, 83)",
+                      }}
                       value={season.toString()}
-
                       onChange={handleChange}
                     >
+                      {/* Season Iteration */}
                       {streamData?.seasons.map((item: any, index: number) => (
-                        <MenuItem key={item.id} value={index} style={{ fontSize:"1.4rem" }}>
+                        <MenuItem
+                          key={item.id}
+                          value={index}
+                          style={{ fontSize: "1.4rem" }}
+                        >
                           {item.name}
                         </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
-                  <Grid container style={{
-                    overflowY: "scroll",
-                    position: "relative",
-                    height: "250px",
-                  }}>
+                  <Grid
+                    container
+                    style={{
+                      overflowY: "scroll",
+                      position: "relative",
+                      height: "250px",
+                    }}
+                  >
+                    {/* Episode Iteration */}
                     {episode?.episodes?.map((ep: any) => (
-                      <Grid item xs={12} md={2}  style={{ maxHeight:"50px", margin: "1.6%", backgroundColor: "rgb(37, 59, 83)", padding: "2px", borderRadius: "5px", }} >
+                      <Grid
+                        item
+                        xs={12}
+                        md={2}
+                        style={{
+                          maxHeight: "50px",
+                          margin: "1.6%",
+                          backgroundColor: "rgb(37, 59, 83)",
+                          padding: "2px",
+                          borderRadius: "5px",
+                        }}
+                      >
                         <ListItemButton>
-
-                          <ListItemText style={{ color: "white", textAlign: "center", }} onClick={() => setStreamUrl(ep?.url)}>
+                          <ListItemText
+                            style={{ color: "white", textAlign: "center" }}
+                            onClick={() => {
+                              setStreamUrl(ep?.url[0]);
+                              setServerUrls(ep?.url);
+                            }}
+                          >
                             {ep.name}
                           </ListItemText>
-
                         </ListItemButton>
                       </Grid>
-
                     ))}
                   </Grid>
                 </Box>
@@ -179,9 +261,8 @@ export const StreamPage = () => {
             image={streamData.poster_path}
             description={streamData.overview}
             id={streamData.imdbId}
-            release={streamData.first_air_date}
+            release={streamData.first_air_date || streamData.release_date}
           />
-        
         </>
       ) : (
         <Loader />
