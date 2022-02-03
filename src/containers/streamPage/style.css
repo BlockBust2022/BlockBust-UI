@@ -1,0 +1,15 @@
+.form-style-1 input.submit {
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: #dd003f;
+  /* background-color: "rgb(10, 26, 43)"; */
+  width: 50%;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.form-style-1 {
+  margin-bottom: 60px;
+}

@@ -23,6 +23,7 @@ import {
 import Loader from "../../components/loader/Loader";
 import GridDisplay from "../../components/gridDisplay/GridDisplay";
 import DisplayInfo from "../../components/displayInfo/DisplayInfo";
+import "./style.css";
 
 export const StreamPage = () => {
   const { id, source } = useParams();
