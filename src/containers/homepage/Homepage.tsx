@@ -9,8 +9,10 @@ import Footer from "../../components/footer/Footer";
 import GridDisplay from "../../components/gridDisplay/GridDisplay";
 import Header from "../../components/header/Header";
 import Loader from "../../components/loader/Loader";
+import { GoogleAnalyticsInit } from "../../utils/GoogleAnalyticsInit";
 
 export const HomePage = () => {
+
   const [trendingMovies, setTrendingMovies] = useState([] as any);
   const [featuredMovies, setFeaturedMovies] = useState([] as any);
   const [trendingSeries, setTrendingSeries] = useState([] as any);
@@ -25,6 +27,9 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
+
+    GoogleAnalyticsInit();
+
     document.title =
       "BlockBust- Watch Full HD Movies Online and Stream Free Movies Online Now";
     fetchTrendingMovies();

@@ -9,6 +9,7 @@ import { getSearch } from "../../service/api";
 import { makeStyles } from "@mui/styles";
 import NotFound from "../../components/notFound/NotFound";
 import queryString from "query-string";
+import { GoogleAnalyticsInit } from "../../utils/GoogleAnalyticsInit";
 
 const useStyles = makeStyles(() => ({
   ul: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const SearchResult = () => {
+
   const navigate = useNavigate();
   const loc = useLocation();
   const query = queryString.parse(loc.search);
@@ -42,6 +44,9 @@ export const SearchResult = () => {
     }
   };
   useEffect(() => {
+
+    GoogleAnalyticsInit();
+
     fetchSerachData(pg);
     document.title = "Results for " + keyword;
     // eslint-disable-next-line react-hooks/exhaustive-deps

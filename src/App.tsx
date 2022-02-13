@@ -2,18 +2,8 @@ import { HomePage } from "./containers/homepage/Homepage";
 import { SearchResult } from "./containers/searchResult/SearchResult";
 import { StreamPage } from "./containers/streamPage/StreamPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
-
-import  Reactga  from "react-ga4";
 
 function App() {
-  useEffect(() => {
-    Reactga.initialize("G-V186B0X8K4");
-
-    Reactga.send(window.location.pathname + window.location.search);
-    console.log("Google Analytics loaded: ", Reactga.ga());
-
-  }, []);
 
   return (
     <BrowserRouter>
