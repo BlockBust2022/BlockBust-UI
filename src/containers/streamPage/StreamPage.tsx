@@ -19,6 +19,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  Skeleton,
 } from "@mui/material";
 import Loader from "../../components/loader/Loader";
 import GridDisplay from "../../components/gridDisplay/GridDisplay";
@@ -28,8 +29,6 @@ import "./style.css";
 import { GoogleAnalyticsInit } from "../../utils/GoogleAnalyticsInit";
 
 export const StreamPage = () => {
-
-
   const { id, source } = useParams();
   const [streamData, setStreamData] = useState(null as any);
   const [season, setSeason] = useState(0);
@@ -38,6 +37,7 @@ export const StreamPage = () => {
   const [pageTitle, setPageTitle] = useState("" as any);
   const [similarStreamData, setSimilarStreamData] = useState([] as any);
   const [serverUrls, setServerUrls] = useState([] as any);
+  const [loader, setLoader] = useState(0);
 
   const getStreamData = async () => {
     try {
@@ -67,6 +67,7 @@ export const StreamPage = () => {
   const fetchEpisode = async (id: string, season: number) => {
     try {
       const res = await getEpisodeBySeason(id as number | string, season);
+      setLoader(1);
       setEpisode(res);
     } catch (err) {
       console.log(err);
@@ -75,11 +76,11 @@ export const StreamPage = () => {
 
   const handleChange = (event: SelectChangeEvent) => {
     setSeason(Number(event.target.value));
+    setLoader(0);
     fetchEpisode(id as string, Number(event.target.value) + 1);
   };
 
   useEffect(() => {
-
     GoogleAnalyticsInit();
 
     if (source === "tv") fetchEpisode(id as string, season + 1);
@@ -221,42 +222,71 @@ export const StreamPage = () => {
                       ))}
                     </Select>
                   </FormControl>
-                  <Grid
-                    container
-                    style={{
-                      overflowY: "scroll",
-                      position: "relative",
-                      height: "250px",
-                    }}
-                  >
-                    {/* Episode Iteration */}
-                    {episode?.episodes?.map((ep: any) => (
-                      <Grid
-                        item
-                        xs={12}
-                        md={2}
+                  {loader === 1 ? (
+                    <Grid
+                      container
+                      style={{
+                        overflowY: "scroll",
+                        position: "relative",
+                        height: "250px",
+                      }}
+                    >
+                      {/* Episode Iteration */}
+                      {episode?.episodes?.map((ep: any) => (
+                        <Grid
+                          item
+                          xs={12}
+                          md={2}
+                          style={{
+                            maxHeight: "50px",
+                            margin: "1.6%",
+                            backgroundColor: "rgb(37, 59, 83)",
+                            padding: "2px",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          <ListItemButton>
+                            <ListItemText
+                              style={{ color: "white", textAlign: "center" }}
+                              onClick={() => {
+                                setStreamUrl(ep?.url[0]);
+                                setServerUrls(ep?.url);
+                              }}
+                            >
+                              {ep.name}
+                            </ListItemText>
+                          </ListItemButton>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  ) : (
+                    <div style={{ margin: "0 10% 0 10%" }}>
+                      <Skeleton
                         style={{
-                          maxHeight: "50px",
-                          margin: "1.6%",
-                          backgroundColor: "rgb(37, 59, 83)",
-                          padding: "2px",
-                          borderRadius: "5px",
+                          height: "75px",
+                          width: "auto",
                         }}
-                      >
-                        <ListItemButton>
-                          <ListItemText
-                            style={{ color: "white", textAlign: "center" }}
-                            onClick={() => {
-                              setStreamUrl(ep?.url[0]);
-                              setServerUrls(ep?.url);
-                            }}
-                          >
-                            {ep.name}
-                          </ListItemText>
-                        </ListItemButton>
-                      </Grid>
-                    ))}
-                  </Grid>
+                        animation="pulse"
+                        variant="text"
+                      />
+                      <Skeleton
+                        style={{
+                          height: "75px",
+                          width: "auto",
+                        }}
+                        animation="pulse"
+                        variant="text"
+                      />
+                      <Skeleton
+                        style={{
+                          height: "75px",
+                          width: "auto",
+                        }}
+                        animation="pulse"
+                        variant="text"
+                      />
+                    </div>
+                  )}
                 </Box>
               ) : (
                 <Loader />
