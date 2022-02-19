@@ -1,7 +1,7 @@
 import { ImageBaseUrl } from "../../constant/constant";
 import "./style.css";
 import { Link } from "react-router-dom";
-import { ResultsEntity } from "../../interface/getSearchInterface";
+import { ResultsEntity } from "../../interface/searchInterface";
 
 const Row = (props: {
   movies: ResultsEntity[];
