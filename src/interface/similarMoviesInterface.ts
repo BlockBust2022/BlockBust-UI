@@ -1,4 +1,4 @@
-export interface getTrendigMoviesInterface {
+export interface similarMoviesInterface {
     page: number;
     results?: (ResultsEntity)[] | null;
     total_pages: number;
@@ -8,7 +8,6 @@ export interface getTrendigMoviesInterface {
     backdrop_path: string;
     id: number;
     original_language: string;
-    overview: string;
     poster_path: string;
     original_title: string;
     title: string;

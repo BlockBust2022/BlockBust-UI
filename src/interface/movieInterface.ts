@@ -1,7 +1,7 @@
-export interface getMovieInterface {
+export interface movieInterface {
   adult: boolean;
   backdrop_path: string;
-  genres?: GenresEntity[] | null;
+  genres?: (GenresEntity)[] | null;
   id: number;
   imdb_id: string;
   original_language: string;
@@ -11,7 +11,7 @@ export interface getMovieInterface {
   release_date: string;
   runtime: number;
   title: string;
-  url: string;
+  url?: (string)[] | null;
 }
 export interface GenresEntity {
   id: number;

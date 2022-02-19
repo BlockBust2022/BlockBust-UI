@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import { Card, CardMedia } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ResultsEntity } from "../../interface/getTrendingMoviesInterface";
+import { ResultsEntity } from "../../interface/trendingMoviesInterface";
 import { Link } from "react-router-dom";
 import { CarouselImageBaseUrl } from "../../constant/constant";
 import "./style.css";
