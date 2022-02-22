@@ -12,18 +12,29 @@ import {
 } from "../../service/api";
 import {
   Box,
+  Button,
+  ButtonGroup,
+  Card,
+  CardMedia,
+  Fab,
   FormControl,
   Grid,
+  IconButton,
   ListItemButton,
   ListItemText,
   MenuItem,
   Select,
   SelectChangeEvent,
+  Stack,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import Loader from "../../components/loader/Loader";
 import GridDisplay from "../../components/gridDisplay/GridDisplay";
 import DisplayInfo from "../../components/displayInfo/DisplayInfo";
 import "./style.css";
+import { FastRewindRounded, PlayArrowRounded, ShoppingCartRounded } from "@mui/icons-material";
+import { display, fontSize } from "@mui/system";
 
 export const StreamPage = () => {
   const { id, source } = useParams();
@@ -187,7 +198,40 @@ export const StreamPage = () => {
               )}
 
               <br></br>
+              <div className="movie-items" >
+    
+    <div id="main-container">
+  <div className="container">
+  <Grid container
+  direction="row"
+  justifyContent="center"
+  alignItems="center">
+  <Card style={{
+        backgroundColor:" rgb(10, 26, 43)", color: "rgb(255, 255, 255)",
+        transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+        borderRadius: "8px",
+        border:" 1px solid rgb(30, 73, 118)",
+        width:"100%",}}variant="outlined">
+           <Grid container
+  direction="row"
+  justifyContent="center"
+  alignItems="center">
+        <Grid item style={{padding:"2rem",}}>
+        <Button variant="contained" style={{padding:"1rem",fontSize:"1.3rem",}}>Contained</Button>
+        </Grid>
+        <Grid item style={{padding:"1rem",}} >
+        <Button variant="contained" style={{padding:"1rem",fontSize:"1.3rem",}}>Contained</Button>
+        </Grid>
+       
+      </Grid>
+</Card>
+</Grid>
+</div>
+</div>
+          </div><br></br>
               {episode ? (
+                 <div id="main-container">
+                 <div className="container">
                 <Box
                   className="card"
                   sx={{ minWidth: 120, backgroundColor: "rgb(10, 26, 43)" }}
@@ -214,6 +258,7 @@ export const StreamPage = () => {
                       ))}
                     </Select>
                   </FormControl>
+                 
                   <Grid
                     container
                     style={{
@@ -232,30 +277,42 @@ export const StreamPage = () => {
                           maxHeight: "50px",
                           margin: "1.6%",
                           backgroundColor: "rgb(37, 59, 83)",
-                          padding: "2px",
                           borderRadius: "5px",
                         }}
                       >
                         <ListItemButton>
+                       <Tooltip style={{fontSize:"1.7rem",}}  title={<h6 style={{ color: "lightblue" }}> {ep.name}</h6>} >
                           <ListItemText
-                            style={{ color: "white", textAlign: "center" }}
+                         
+                            
                             onClick={() => {
                               setStreamUrl(ep?.url[0]);
                               setServerUrls(ep?.url);
                             }}
-                          >
+                          ><Typography   style={{ color: "white", textAlign: "center",  fontSize:"1.3rem" ,  overflow: "hidden",
+                          textOverflow:"ellipsis",
+                         
+                          whiteSpace:"nowrap",}}>
                             {ep.name}
+                            </Typography>
                           </ListItemText>
+                          </Tooltip>
                         </ListItemButton>
                       </Grid>
                     ))}
                   </Grid>
+                 
                 </Box>
+                </div>
+                  </div>
               ) : (
                 <Loader />
               )}
             </div>
+            
           )}
+          
+      
           <DisplayInfo
             name={streamData.name || streamData.title}
             image={streamData.poster_path}
