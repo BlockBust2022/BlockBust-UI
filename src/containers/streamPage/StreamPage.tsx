@@ -12,20 +12,29 @@ import {
 } from "../../service/api";
 import {
   Box,
+  Button,
+  ButtonGroup,
+  Card,
+  CardMedia,
+  Fab,
   FormControl,
   Grid,
+  IconButton,
   ListItemButton,
   ListItemText,
   MenuItem,
   Select,
   SelectChangeEvent,
-  Skeleton,
+  Stack,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import Loader from "../../components/loader/Loader";
 import GridDisplay from "../../components/gridDisplay/GridDisplay";
 import DisplayInfo from "../../components/displayInfo/DisplayInfo";
-
-import { GoogleAnalyticsInit } from "../../utils/GoogleAnalyticsInit";
+import "./style.css";
+import { FastRewindRounded, PlayArrowRounded, ShoppingCartRounded } from "@mui/icons-material";
+import { display, fontSize } from "@mui/system";
 
 export const StreamPage = () => {
   const { id, source } = useParams();
@@ -36,7 +45,6 @@ export const StreamPage = () => {
   const [pageTitle, setPageTitle] = useState("" as any);
   const [similarStreamData, setSimilarStreamData] = useState([] as any);
   const [serverUrls, setServerUrls] = useState([] as any);
-  const [loader, setLoader] = useState(0);
 
   const getStreamData = async () => {
     try {
@@ -66,7 +74,6 @@ export const StreamPage = () => {
   const fetchEpisode = async (id: string, season: number) => {
     try {
       const res = await getEpisodeBySeason(id as number | string, season);
-      setLoader(1);
       setEpisode(res);
     } catch (err) {
       console.log(err);
@@ -75,13 +82,10 @@ export const StreamPage = () => {
 
   const handleChange = (event: SelectChangeEvent) => {
     setSeason(Number(event.target.value));
-    setLoader(0);
     fetchEpisode(id as string, Number(event.target.value) + 1);
   };
 
   useEffect(() => {
-    GoogleAnalyticsInit();
-
     if (source === "tv") fetchEpisode(id as string, season + 1);
     getStreamData();
     document.title = pageTitle;
@@ -194,7 +198,40 @@ export const StreamPage = () => {
               )}
 
               <br></br>
+              <div className="movie-items" >
+    
+    <div id="main-container">
+  <div className="container">
+  <Grid container
+  direction="row"
+  justifyContent="center"
+  alignItems="center">
+  <Card style={{
+        backgroundColor:" rgb(10, 26, 43)", color: "rgb(255, 255, 255)",
+        transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+        borderRadius: "8px",
+        border:" 1px solid rgb(30, 73, 118)",
+        width:"100%",}}variant="outlined">
+           <Grid container
+  direction="row"
+  justifyContent="center"
+  alignItems="center">
+        <Grid item style={{padding:"2rem",}}>
+        <Button variant="contained" style={{padding:"1rem",fontSize:"1.3rem",}}>Contained</Button>
+        </Grid>
+        <Grid item style={{padding:"1rem",}} >
+        <Button variant="contained" style={{padding:"1rem",fontSize:"1.3rem",}}>Contained</Button>
+        </Grid>
+       
+      </Grid>
+</Card>
+</Grid>
+</div>
+</div>
+          </div><br></br>
               {episode ? (
+                 <div id="main-container">
+                 <div className="container">
                 <Box
                   className="card"
                   sx={{ minWidth: 120, backgroundColor: "rgb(10, 26, 43)" }}
@@ -221,77 +258,61 @@ export const StreamPage = () => {
                       ))}
                     </Select>
                   </FormControl>
-                  {loader === 1 ? (
-                    <Grid
-                      container
-                      style={{
-                        overflowY: "scroll",
-                        position: "relative",
-                        height: "250px",
-                      }}
-                    >
-                      {/* Episode Iteration */}
-                      {episode?.episodes?.map((ep: any) => (
-                        <Grid
-                          item
-                          xs={12}
-                          md={2}
-                          style={{
-                            maxHeight: "50px",
-                            margin: "1.6%",
-                            backgroundColor: "rgb(37, 59, 83)",
-                            padding: "2px",
-                            borderRadius: "5px",
-                          }}
-                        >
-                          <ListItemButton>
-                            <ListItemText
-                              style={{ color: "white", textAlign: "center" }}
-                              onClick={() => {
-                                setStreamUrl(ep?.url[0]);
-                                setServerUrls(ep?.url);
-                              }}
-                            >
-                              {ep.name}
-                            </ListItemText>
-                          </ListItemButton>
-                        </Grid>
-                      ))}
-                    </Grid>
-                  ) : (
-                    <div style={{ margin: "0 10% 0 10%" }}>
-                      <Skeleton
+                 
+                  <Grid
+                    container
+                    style={{
+                      overflowY: "scroll",
+                      position: "relative",
+                      height: "250px",
+                    }}
+                  >
+                    {/* Episode Iteration */}
+                    {episode?.episodes?.map((ep: any) => (
+                      <Grid
+                        item
+                        xs={12}
+                        md={2}
                         style={{
-                          height: "75px",
-                          width: "auto",
+                          maxHeight: "50px",
+                          margin: "1.6%",
+                          backgroundColor: "rgb(37, 59, 83)",
+                          borderRadius: "5px",
                         }}
-                        animation="pulse"
-                        variant="text"
-                      />
-                      <Skeleton
-                        style={{
-                          height: "75px",
-                          width: "auto",
-                        }}
-                        animation="pulse"
-                        variant="text"
-                      />
-                      <Skeleton
-                        style={{
-                          height: "75px",
-                          width: "auto",
-                        }}
-                        animation="pulse"
-                        variant="text"
-                      />
-                    </div>
-                  )}
+                      >
+                        <ListItemButton>
+                       <Tooltip style={{fontSize:"1.7rem",}}  title={<h6 style={{ color: "lightblue" }}> {ep.name}</h6>} >
+                          <ListItemText
+                         
+                            
+                            onClick={() => {
+                              setStreamUrl(ep?.url[0]);
+                              setServerUrls(ep?.url);
+                            }}
+                          ><Typography   style={{ color: "white", textAlign: "center",  fontSize:"1.3rem" ,  overflow: "hidden",
+                          textOverflow:"ellipsis",
+                         
+                          whiteSpace:"nowrap",}}>
+                            {ep.name}
+                            </Typography>
+                          </ListItemText>
+                          </Tooltip>
+                        </ListItemButton>
+                      </Grid>
+                    ))}
+                  </Grid>
+                 
                 </Box>
+                </div>
+                  </div>
               ) : (
                 <Loader />
               )}
             </div>
+            
           )}
+          
+      
           <DisplayInfo
             name={streamData.name || streamData.title}
             image={streamData.poster_path}
@@ -321,3 +342,4 @@ export const StreamPage = () => {
     </div>
   );
 };
+
