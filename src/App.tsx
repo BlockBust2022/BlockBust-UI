@@ -13,6 +13,11 @@ import SignIn from "./containers/signIn/SignIn";
 import AdminDashboard from "./containers/adminDashboard/AdminDashboard";
 import { authUser } from "./constant/auth";
 import RequireAuth from "./components/requireAuth/RequireAuth";
+import PrivacyPolicy from "./containers/PrivacyPolicy";
+import TermsOfUse from "./containers/TermsOfUse";
+import Ads from "./containers/Ads";
+import AboutUs from "./containers/AboutUs";
+
 function App() {
   const navigate = useNavigate();
   return (
@@ -37,6 +42,10 @@ function App() {
           </RequireAuth>
         }
       />
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="/ads" element={<Ads />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/terms-of-use" element={<TermsOfUse />} />
     </Routes>
   );
 }
