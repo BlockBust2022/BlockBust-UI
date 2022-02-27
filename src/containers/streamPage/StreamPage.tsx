@@ -49,7 +49,7 @@ export const StreamPage = () => {
         const similarMovie = await getSimilarMovies(id as string);
         setStreamData(res);
         setPageTitle(res.title);
-        setStreamUrl(res.url);
+        res.url && setStreamUrl(res.url[0]);
         setServerUrls(res.url);
         setSimilarStreamData(similarMovie.results);
       }
@@ -117,7 +117,7 @@ export const StreamPage = () => {
               <h1 style={{ paddingBottom: "2%" }}>
                 {streamData.name || streamData.title}
               </h1>
-              <Player streamUrl={streamData?.url} />
+              <Player streamUrl={streamUrl} />
               <br></br>
               <p style={{ textAlign: "center" }}>
                 If you face problem with player refresh the page or change
