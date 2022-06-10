@@ -17,6 +17,7 @@ import PrivacyPolicy from "./containers/PrivacyPolicy";
 import TermsOfUse from "./containers/TermsOfUse";
 import Ads from "./containers/Ads";
 import AboutUs from "./containers/AboutUs";
+import ContactUs from "./containers/ContactUs";
 
 function App() {
   const navigate = useNavigate();
@@ -43,9 +44,10 @@ function App() {
         }
       />
       <Route path="/about" element={<AboutUs />} />
-      <Route path="/ads" element={<Ads />} />
+      <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-of-use" element={<TermsOfUse />} />
+      <Route path="/ads" element={<Ads />} />
     </Routes>
   );
 }
