@@ -21,13 +21,23 @@ const Footer = () => {
             <h4>Resources</h4>
             <ul>
               <li>
-                <a >About</a>
+                <Link
+                  to={{
+                    pathname: `/about`,
+                  }}
+                >
+                  <a >About</a>
+                </Link>
               </li>
+              
               <li>
-                <a>Blockbuster</a>
-              </li>
-              <li>
-                <a>Contact Us</a>
+                <Link
+                  to={{
+                    pathname: `/contact-us`,
+                  }}
+                >
+                  <a>Contact Us</a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -35,14 +45,24 @@ const Footer = () => {
             <h4>Legal</h4>
             <ul>
               <li>
-                <a>Terms of Use</a>
+                <Link
+                  to={{
+                    pathname: `/terms-of-use`,
+                  }}
+                >
+                  <a>Terms of Use</a>
+                </Link>
               </li>
               <li>
-                <a>Privacy Policy</a>
+                <Link
+                  to={{
+                    pathname: `/privacy-policy`,
+                  }}
+                >
+                  <a>Privacy Policy</a>
+                </Link>
               </li>
-              <li>
-                <a>Security</a>
-              </li>
+              
             </ul>
           </div>
           <div className="flex-child-ft item5">
